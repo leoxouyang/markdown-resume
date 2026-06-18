@@ -68,7 +68,7 @@ const fontLoader = (fonts: string | Array<string>) => {
   const observers = [];
 
   for (const font of typeof fonts === "string" ? [fonts] : fonts)
-    observers.push(document.fonts.load(`12px ${font}`));
+    observers.push(document.fonts.load(`12px ${JSON.stringify(font)}`));
 
   return Promise.all(observers);
 };

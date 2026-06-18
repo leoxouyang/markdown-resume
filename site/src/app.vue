@@ -10,6 +10,7 @@
 const { t, locale } = useI18n();
 const colorMode = useColorMode();
 const preferredDark = { value: false }; //usePreferredDark();
+const baseURL = useRuntimeConfig().app.baseURL;
 
 useHead({
   title: t("head.title"),
@@ -28,7 +29,7 @@ useHead({
     {
       rel: "icon",
       type: "image/svg+xml",
-      href: () => (preferredDark.value ? "/favicon-dark.svg" : "/favicon.svg")
+      href: () => `${baseURL}${preferredDark.value ? "favicon-dark.svg" : "favicon.svg"}`
     }
   ],
   script: [

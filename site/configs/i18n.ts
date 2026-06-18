@@ -1,7 +1,7 @@
 import type { NuxtI18nOptions } from "@nuxtjs/i18n";
 
 export const i18n: NuxtI18nOptions = {
-  defaultLocale: "en",
+  defaultLocale: "zh-cn",
   strategy: "prefix_and_default",
   locales: [
     {
@@ -11,25 +11,11 @@ export const i18n: NuxtI18nOptions = {
       file: "en.yaml"
     },
     {
-      code: "id",
-      name: "Bahasa Indonesia",
-      icon: "i-circle-flags:id",
-      file: "id.yaml"
-    },
-    /*
-    {
-      code: "sp",
-      name: "Spanish",
-      icon: "i-material-symbols:language-spanish",
-      file: "sp.yaml"
-    },
-    {
       code: "zh-cn",
       name: "简体中文",
       icon: "i-icon-park-outline:chinese",
       file: "zh-cn.yaml"
     }
-    */
   ],
   langDir: "i18n",
   compilation: {

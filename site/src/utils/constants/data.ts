@@ -42,7 +42,7 @@ export const EN_FONTS: Font[] = [
   },
   {
     name: "Verdana"
-  },
+  }
   /*
   {
     name: "Adobe Garamond Pro"
@@ -66,6 +66,18 @@ export const EN_FONTS: Font[] = [
 ];
 
 export const CJK_FONTS: Font[] = [
+  {
+    name: "PingFang SC (苹方)",
+    fontFamily: "PingFang SC"
+  },
+  {
+    name: "SimHei (深色黑体)",
+    fontFamily: "SimHei"
+  },
+  {
+    name: "Microsoft YaHei (微软雅黑)",
+    fontFamily: "Microsoft YaHei"
+  },
   {
     name: "华康宋体",
     fontFamily: "HKST"
