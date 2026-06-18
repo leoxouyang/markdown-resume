@@ -23,9 +23,9 @@ export const pwa: ModuleOptions = {
         type: "image/png"
       },
       {
-        src: `${scope}favicon.svg`,
+        src: `${scope}pwa-512x512.png`,
         sizes: "512x512",
-        type: "image/svg",
+        type: "image/png",
         purpose: "any maskable"
       }
     ]

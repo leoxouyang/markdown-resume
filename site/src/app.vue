@@ -9,7 +9,6 @@
 <script setup lang="ts">
 const { t, locale } = useI18n();
 const colorMode = useColorMode();
-const preferredDark = { value: false }; //usePreferredDark();
 const baseURL = useRuntimeConfig().app.baseURL;
 
 useHead({
@@ -28,8 +27,8 @@ useHead({
   link: [
     {
       rel: "icon",
-      type: "image/svg+xml",
-      href: () => `${baseURL}${preferredDark.value ? "favicon-dark.svg" : "favicon.svg"}`
+      type: "image/png",
+      href: () => `${baseURL}site-logo.png`
     }
   ],
   script: [

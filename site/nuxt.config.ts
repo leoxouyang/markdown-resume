@@ -54,14 +54,7 @@ export default defineNuxtConfig({
     buildAssetsDir: "assets", // don't use "_" at the begining of the folder name to avoids
     head: {
       viewport: "width=device-width,initial-scale=1",
-      link: [
-        { rel: "apple-touch-icon", href: `${baseURL}apple-touch-icon.png` },
-        {
-          rel: "mask-icon",
-          href: `${baseURL}safari-pinned-tab.svg`,
-          color: "#222"
-        }
-      ],
+      link: [{ rel: "apple-touch-icon", href: `${baseURL}apple-touch-icon.png` }],
       meta: [
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { name: "application-name", content: "Markdown Resume" },
