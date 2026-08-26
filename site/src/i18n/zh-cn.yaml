@@ -18,6 +18,26 @@ landing:
 
 resumes:
   my_resumes: 我的简历
+  library_desc: 按语言和用途浏览文档，快速找到需要继续编辑的版本。
+  filter_label: 筛选简历文档
+  documents: 份文档
+  empty_category: 这个分类里还没有文档
+  categories:
+    all: 全部
+    zh: 中文简历
+    en: 英文简历
+    cover: Cover Letter
+  category_desc:
+    zh: 中文求职、用户研究与研究岗位版本
+    en: 英文求职、研究与国际岗位版本
+    cover: 求职信和岗位定制说明
+  autosave:
+    ready: 自动保存已开启
+    pending: 等待自动保存
+    saving: 正在保存
+    saved: 已自动保存 {time}
+    error: 自动保存失败，草稿仍保留在本机
+  manual_save: 立即保存
   created: 创建于：
   updated: 更新于：
   new: 新建
@@ -42,8 +62,8 @@ toolbar:
     export_html: 导出为 HTML
   correct_case:
     text: 专有名词大小写修正
-    desc: "例如：\"Github\" → \"GitHub\" <br> 注意：不会修正全为大写或小写字母的单词（如 \"GITHUB\" 或 \"github\"）"
-    btn : 修正
+    desc: '例如："Github" → "GitHub" <br> 注意：不会修正全为大写或小写字母的单词（如 "GITHUB" 或 "github"）'
+    btn: 修正
   paper: 纸张尺寸
   font_family: 字体
   font_size: 字号
@@ -64,7 +84,7 @@ notification:
   duplicate: 已创建简历 "{old}" 的副本 "{new}"
   correct:
     yes: 成功修正 {num} 个单词
-    no : 您的所有拼写都是正确的！
+    no: 您的所有拼写都是正确的！
   import:
     yes: 已成功导入数据！
-    no : 数据格式不正确
+    no: 数据格式不正确

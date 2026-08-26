@@ -4,6 +4,31 @@ import { DEFAULT_STYLES, DEFAULT_NAME, DEFAULT_MD_CONTENT, DEFAULT_CSS_CONTENT }
 import type { ResumeStorage, ResumeStorageItem, ResumeStyles } from "~/types";
 
 const MARKDOWN_RESUME_KEY = "MARKDOWN_RESUME_data";
+const MARKDOWN_RESUME_DRAFT_PREFIX = "MARKDOWN_RESUME_draft_";
+
+export const saveResumeDraft = (id: string, resume: ResumeStorageItem) => {
+  if (!isClient) return;
+  localStorage.setItem(`${MARKDOWN_RESUME_DRAFT_PREFIX}${id}`, JSON.stringify(resume));
+};
+
+export const getResumeDraft = (id: string) => {
+  if (!isClient) return null;
+
+  try {
+    const draft = localStorage.getItem(`${MARKDOWN_RESUME_DRAFT_PREFIX}${id}`);
+    return draft ? (JSON.parse(draft) as ResumeStorageItem) : null;
+  } catch {
+    return null;
+  }
+};
+
+export const clearResumeDraft = (id: string, expectedUpdate?: string) => {
+  if (!isClient) return;
+
+  const draft = getResumeDraft(id);
+  if (!expectedUpdate || draft?.update === expectedUpdate)
+    localStorage.removeItem(`${MARKDOWN_RESUME_DRAFT_PREFIX}${id}`);
+};
 
 export const getStorage = async () =>
   isClient ? localForage.getItem<ResumeStorage>(MARKDOWN_RESUME_KEY) : null;
@@ -61,14 +86,20 @@ export const setResume = (id: string, resume: ResumeStorageItem) => {
  * @param id resume id
  * @param resume resume data
  */
-export const saveResume = async (id: string, resume: ResumeStorageItem) => {
+export const saveResume = async (
+  id: string,
+  resume: ResumeStorageItem,
+  options: { notify?: boolean } = {}
+) => {
   const storage = (await getStorage()) || {};
   storage[id] = resume;
 
   await localForage.setItem(MARKDOWN_RESUME_KEY, storage);
 
-  const toast = useToast();
-  toast.save();
+  if (options.notify !== false) {
+    const toast = useToast();
+    toast.save();
+  }
 };
 
 /**
@@ -178,8 +209,12 @@ export const switchResume = async (id: string) => {
   const storage = await getStorage();
 
   if (storage && storage[id]) {
-    setResume(id, storage[id]);
-    toast.switch(storage[id].name);
+    const savedResume = storage[id];
+    const draft = getResumeDraft(id);
+    const resume = draft && draft.update >= savedResume.update ? draft : savedResume;
+
+    setResume(id, resume);
+    toast.switch(resume.name);
     return true;
   }
 

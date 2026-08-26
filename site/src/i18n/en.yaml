@@ -18,6 +18,26 @@ landing:
 
 resumes:
   my_resumes: My Resumes
+  library_desc: Browse documents by language and purpose, then return to the right version quickly.
+  filter_label: Filter resume documents
+  documents: documents
+  empty_category: No documents in this category yet
+  categories:
+    all: All
+    zh: Chinese resumes
+    en: English resumes
+    cover: Cover letters
+  category_desc:
+    zh: Chinese versions for research, insight, and job applications
+    en: English versions for research and international roles
+    cover: Cover letters and role-specific application notes
+  autosave:
+    ready: Autosave is on
+    pending: Autosave pending
+    saving: Saving
+    saved: Autosaved {time}
+    error: Autosave failed; your local draft is still available
+  manual_save: Save now
   created: "Created: "
   updated: "Updated: "
   new: New
@@ -43,8 +63,8 @@ toolbar:
     export_docx: Export DOCX
   correct_case:
     text: Correct Case
-    desc: "Example: \"Github\" → \"GitHub\" <br> Note: the words only including uppercase or lowercase (\"GITHUB\" or \"github\") will be left untouched"
-    btn : Correct it!
+    desc: 'Example: "Github" → "GitHub" <br> Note: the words only including uppercase or lowercase ("GITHUB" or "github") will be left untouched'
+    btn: Correct it!
   paper: Paper Size
   font_family: Font Family
   font_size: Font Size
@@ -65,7 +85,7 @@ notification:
   duplicate: Created resume "{old}"'s duplication "{new}"
   correct:
     yes: Corrected {num} words
-    no : All case are correct!
+    no: All case are correct!
   import:
     yes: Data has been successfully imported!
-    no : Data format is invalid.
+    no: Data format is invalid.
