@@ -3,7 +3,6 @@ import {
   presetAttributify,
   presetIcons,
   presetUno,
-  presetWebFonts,
   transformerDirectives,
   transformerVariantGroup
 } from "unocss";
@@ -42,6 +41,9 @@ export default defineConfig({
     ]
   ],
   theme: {
+    fontFamily: {
+      ui: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif'
+    },
     breakpoints: {
       sm: "641px",
       md: "769px",
@@ -54,11 +56,6 @@ export default defineConfig({
     presetIcons({
       extraProperties: {
         display: "inline-block"
-      }
-    }),
-    presetWebFonts({
-      fonts: {
-        ui: "Lato:400,700"
       }
     })
   ],

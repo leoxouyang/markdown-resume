@@ -160,7 +160,6 @@ ${PREVIEW_SELECTOR} h3 {
   font-size: 1.2em;
 }
 
-${PREVIEW_SELECTOR} h1,
 ${PREVIEW_SELECTOR} h2 {
   border-bottom-style: solid;
   border-bottom-width: 1px;

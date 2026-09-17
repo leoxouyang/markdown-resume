@@ -52,10 +52,10 @@ const saveName = computed(() => data.curResumeName.trim().replace(/\s+/g, "_"));
 // Generate complete HTML document with styles
 const generateHtmlDocument = () => {
   const html = renderMarkdown(data.mdContent);
-  
+
   // Get paper dimensions in pixels
-  const paperWidthPx = getPaperPx(styles.paper, 'w');
-  
+  const paperWidthPx = getPaperPx(styles.paper, "w");
+
   // Generate dynamic CSS based on current styles
   const dynamicCss = `
     /* Dynamic Styles */
@@ -128,12 +128,14 @@ const generateHtmlDocument = () => {
       }
     }
   `;
-  
+
   // Combine backbone CSS with dynamic CSS
-  const fullCss = data.cssContent + dynamicCss;
-  
+  const fullCss =
+    data.cssContent + dynamicCss + fontFamilyCss(styles, "vue-smart-pages-preview");
+
   // Create complete HTML document
-  const scriptTag = '<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"><\/script>';
+  const scriptTag =
+    '<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"><\/script>';
   const htmlDocument = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -151,7 +153,7 @@ ${html}
   </main>
 </body>
 </html>`;
-  
+
   return htmlDocument;
 };
 
@@ -174,21 +176,19 @@ const exportHtml = () => {
 
 const exportDocx = async () => {
   try {
-    // Get the same HTML document used for HTML export
-    const htmlDocument = generateHtmlDocument();
-    
-    // Dynamic import of the libraries
-    const { asBlob } = await import('html-docx-js-typescript');
-    // @ts-ignore - file-saver types not available
-    const { saveAs } = await import('file-saver');
-    
-    // Convert HTML to DOCX and save
-    asBlob(htmlDocument).then(data => {
-      saveAs(data, `${saveName.value}.docx`);
-    });
+    const { createResumeDocx } = await import("~/utils/docx");
+    const blob = await createResumeDocx(renderMarkdown(data.mdContent), styles);
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${saveName.value}.docx`;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   } catch (error) {
-    console.error('Error exporting DOCX:', error);
-    alert('Failed to export DOCX. Please try again.');
+    console.error("Error exporting DOCX:", error);
+    alert(
+      error instanceof Error ? error.message : "Failed to export DOCX. Please try again."
+    );
   }
 };
 </script>

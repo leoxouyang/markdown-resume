@@ -71,7 +71,7 @@ export const CJK_FONTS: Font[] = [
     fontFamily: "PingFang SC"
   },
   {
-    name: "SimHei (深色黑体)",
+    name: "SimHei (黑体)",
     fontFamily: "SimHei"
   },
   {

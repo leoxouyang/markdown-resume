@@ -1,11 +1,5 @@
 const NEW_PAGE = "md-it-newpage";
 
-const removeElements = (parent: HTMLElement, selector: string) => {
-  const elements = Array.from(parent.querySelectorAll(selector));
-
-  for (const e of elements) parent.removeChild(e);
-};
-
 export const breakPage = (
   id: string,
   height: number,
@@ -14,43 +8,44 @@ export const breakPage = (
   left: number,
   right: number
 ) => {
-  const page = document.querySelector(`#${id}`) as HTMLDivElement;
+  const page = document.getElementById(id);
   if (!page) return;
-  removeElements(page, ".vue-smart-page-break");
-
+  page.querySelectorAll(":scope > .vue-smart-page-break").forEach((e) => e.remove());
   const contentH = height - top - bottom;
+  if (contentH <= 0) return;
 
-  const getPageBreakElement = (marginTop: number) => {
-    const pageBreak = document.createElement("div") as HTMLDivElement;
-    pageBreak.className = "vue-smart-page-break";
-
-    pageBreak.style.marginTop = `${marginTop}px`;
-    pageBreak.style.paddingBottom = `${bottom}px`;
-
-    pageBreak.style.marginLeft = `-${left}px`;
-    pageBreak.style.marginRight = `-${right}px`;
-
-    return pageBreak;
+  const spacer = (remaining: number) => {
+    const element = document.createElement("div");
+    element.className = "vue-smart-page-break";
+    element.style.marginTop = `${Math.max(0, remaining)}px`;
+    element.style.paddingBottom = `${top}px`;
+    element.style.marginLeft = `-${left}px`;
+    element.style.marginRight = `-${right}px`;
+    return element;
   };
-
-  let pageH = 0;
-
-  const newPage = document.createElement("div") as HTMLDivElement;
-
+  const outerHeight = (element: Element) => {
+    const style = getComputedStyle(element);
+    // offsetHeight is unscaled, unlike getBoundingClientRect in the zoomed preview.
+    return (
+      (element as HTMLElement).offsetHeight +
+      (parseFloat(style.marginTop) || 0) +
+      (parseFloat(style.marginBottom) || 0)
+    );
+  };
+  let used = 0;
   for (const child of Array.from(page.children)) {
-    const style = window.getComputedStyle(child, null);
-    const childH =
-      child.clientHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
-
-    if (pageH + childH > contentH || child.className === NEW_PAGE) {
-      newPage.appendChild(getPageBreakElement(height - pageH - top));
-      pageH = 0;
+    const explicit =
+      child.classList.contains(NEW_PAGE) || !!child.querySelector(`.${NEW_PAGE}`);
+    const childH = outerHeight(child);
+    child.classList.toggle("resume-block-oversize", childH > contentH);
+    if (explicit || (used > 0 && used + childH > contentH)) {
+      page.insertBefore(spacer(height - top - used), child);
+      used = 0;
     }
-
-    newPage.appendChild(child.cloneNode(true));
-    pageH += childH;
+    if (!explicit) used += childH;
+    // A block taller than a sheet cannot be kept intact. Let print split it
+    // naturally and avoid creating a blank page before it.
+    if (used > contentH) used %= contentH;
   }
-
-  page.innerHTML = newPage.innerHTML;
-  page.style.paddingBottom = `${height - pageH - top}px`;
+  page.style.paddingBottom = `${Math.max(bottom, height - top - used)}px`;
 };

@@ -60,11 +60,31 @@ toolbar:
     export_pdf: 导出为 PDF
     export_md: 导出为 Markdown
     export_html: 导出为 HTML
+    export_docx: 导出为 Word（DOCX）
   correct_case:
     text: 专有名词大小写修正
     desc: '例如："Github" → "GitHub" <br> 注意：不会修正全为大写或小写字母的单词（如 "GITHUB" 或 "github"）'
     btn: 修正
   paper: 纸张尺寸
+  font_help:
+    missing: "{font} 在当前设备不可用，正在使用系统回退字体。"
+    unavailable: "（未安装）"
+    install: 安装方法
+    pingfang: 苹方是 macOS 系统字体。请在“字体册”中搜索 PingFang SC，检查是否已启用；若缺失，可参考 Apple 的系统字体恢复说明。其他系统可使用下方内置字体。
+    simhei: Windows 可在“设置 → 可选功能”中添加“简体中文补充字体”，其中包含黑体 SimHei。
+    yahei: 微软雅黑随 Windows 提供。Windows 缺少中文字体时，请按微软官方说明添加中文语言及字体支持。
+    mac: "macOS：如已有可合法使用的 .ttf、.otf 或 .ttc 字体文件，双击文件，在“字体册”中点“安装”。"
+    windows: "Windows：如已有字体文件，右键选择“安装”，或在“设置 → 个性化 → 字体”中添加。"
+    restart: 安装后重新打开浏览器，再点击“重新检测”。
+    apple: Apple 字体安装说明
+    restore: Apple 系统字体恢复说明
+    microsoft: Windows 中文字体安装说明
+    font_info: 微软雅黑官方信息
+    windows_install: Windows 字体安装说明
+    recheck: 重新检测
+    checking: 检测中…
+    builtin: 无需安装，也可以直接使用内置字体：
+    wenkai: 使用霞鹜文楷
   font_family: 字体
   font_size: 字号
   cjk: 中日韩

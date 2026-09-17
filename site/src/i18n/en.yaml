@@ -66,6 +66,25 @@ toolbar:
     desc: 'Example: "Github" → "GitHub" <br> Note: the words only including uppercase or lowercase ("GITHUB" or "github") will be left untouched'
     btn: Correct it!
   paper: Paper Size
+  font_help:
+    missing: "{font} is unavailable on this device. A system fallback is being used."
+    unavailable: " (not installed)"
+    install: How to install
+    pingfang: PingFang is a macOS system font. Search for PingFang SC in Font Book and check that it is enabled. If missing, follow Apple’s system-font restoration guide. On other systems, use a bundled font below.
+    simhei: On Windows, add Chinese (Simplified) Supplemental Fonts in Settings → Optional features. This package includes SimHei.
+    yahei: Microsoft YaHei is supplied with Windows. If Chinese fonts are missing, follow Microsoft’s guide to add Chinese language and font support.
+    mac: "macOS: If you have a licensed .ttf, .otf or .ttc file, double-click it and choose Install in Font Book."
+    windows: "Windows: Right-click an available font file and choose Install, or add it in Settings → Personalization → Fonts."
+    restart: After installation, reopen your browser and select Check again.
+    apple: Apple font installation guide
+    restore: Restore macOS system fonts
+    microsoft: Install Chinese fonts on Windows
+    font_info: Microsoft YaHei font information
+    windows_install: Windows font installation guide
+    recheck: Check again
+    checking: Checking…
+    builtin: "Or use a bundled font without installing anything:"
+    wenkai: Use LXGW WenKai
   font_family: Font Family
   font_size: Font Size
   cjk: CJK

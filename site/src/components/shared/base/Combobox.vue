@@ -44,6 +44,7 @@ const props = defineProps<{
   id: string;
   items: Array<ComboboxItem>;
   default: string;
+  closeOnSelect?: boolean;
 }>();
 
 const options = ref(props.items);
@@ -61,7 +62,7 @@ const [state, send] = useMachine(
     id: props.id,
     collection: collectionRef.value,
     value: [props.default],
-    closeOnSelect: false,
+    closeOnSelect: props.closeOnSelect ?? false,
     onInputValueChange: ({ value }) => {
       const filtered = props.items.filter((item) =>
         item.label.toLowerCase().includes(value.toLowerCase())

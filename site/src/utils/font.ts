@@ -78,3 +78,21 @@ export const onFontLoaded = (styles: ResumeStyles) =>
     styles.fontEN.fontFamily || styles.fontEN.name,
     styles.fontCJK.fontFamily || styles.fontCJK.name
   ]);
+
+export const LOCAL_CJK_FONTS = ["PingFang SC", "SimHei", "Microsoft YaHei"];
+
+export const isLocalFontAvailable = async (family: string) => {
+  try {
+    const names =
+      family === "PingFang SC"
+        ? ["PingFangSC-Regular", "PingFang SC Regular", family]
+        : [family];
+    await new FontFace(
+      "resume-font-probe",
+      names.map((name) => `local(${JSON.stringify(name)})`).join(", ")
+    ).load();
+    return true;
+  } catch {
+    return false;
+  }
+};

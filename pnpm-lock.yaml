@@ -221,9 +221,9 @@ importers:
       gfonts-loader:
         specifier: workspace:*
         version: link:../packages/gfonts-loader
-      html-docx-js-typescript:
-        specifier: ^0.1.5
-        version: 0.1.5
+      jszip:
+        specifier: ^3.10.1
+        version: 3.10.1
       katex:
         specifier: ^0.16.10
         version: 0.16.10

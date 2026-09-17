@@ -73,9 +73,60 @@ const resolveHeader = (html: string, frontmatter: ResumeFrontMatter) => {
 export const renderMarkdown = (md: string) => {
   const { body, attributes } = frontmatter(md);
 
-  let html = markdown.render(body);
+  // Group top-level Markdown blocks before pagination; a section heading stays
+  // with its first entry, while later entries may start on a new page.
+  const env = {};
+  const tokens = markdown.parse(body, env);
+  const blocks: string[] = [];
+  let start = 0;
+  for (let i = 0; i < tokens.length; i++) {
+    if (tokens[i].level === 0 && tokens[i].nesting !== 1) {
+      blocks.push(
+        markdown.renderer.render(tokens.slice(start, i + 1), markdown.options, env)
+      );
+      start = i + 1;
+    }
+  }
+  const groups: string[] = [];
+  let group = "";
+  let onlyHeading = false;
+  const flush = () => {
+    if (group) groups.push(`<div class="resume-block">${group}</div>`);
+    group = "";
+  };
+  for (const block of blocks.flatMap((block) =>
+    resolveDeflist(block)
+      .split(/(?=<dl>)/)
+      .filter(Boolean)
+  )) {
+    if (block.includes('class="md-it-newpage"')) {
+      flush();
+      groups.push(block);
+      onlyHeading = false;
+      continue;
+    }
+    const heading = /^<h[1-6][ >]/.test(block);
+    const entry =
+      /^<dl>\s*<dt>\s*<strong>/.test(block) ||
+      /^<p><strong>[\s\S]*<\/strong><\/p>\s*$/.test(block);
+    if ((heading && !onlyHeading) || (entry && !onlyHeading)) flush();
+    group += block;
+    onlyHeading = heading;
+  }
+  flush();
+  let html = groups.join("\n");
   html = resolveDeflist(html);
   html = resolveHeader(html, attributes);
+  // Only text nodes are changed: tags, URLs and attributes remain untouched.
+  html = html.replace(
+    /(<[^>]*>)|([^<]+)/g,
+    (part, tag, text) =>
+      tag ||
+      text.replace(
+        /[\u2E80-\u9FFF\uAC00-\uD7AF\uF900-\uFAFF\uFF00-\uFFEF\u{20000}-\u{3134F}]+/gu,
+        (cjk: string) => `<span class="resume-cjk">${cjk}</span>`
+      )
+  );
 
   return html;
 };

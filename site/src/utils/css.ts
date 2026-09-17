@@ -22,10 +22,15 @@ const paragraphSpaceCss = (styles: ResumeStyles, id: string) => {
   return `#${id} h2 { margin-top: ${styles.paragraphSpace}px }`;
 };
 
-const fontFamilyCss = (styles: ResumeStyles, id: string) => {
+export const fontFamilyCss = (styles: ResumeStyles, id: string) => {
   const fontEN = styles.fontEN.fontFamily || styles.fontEN.name;
   const fontCJK = styles.fontCJK.fontFamily || styles.fontCJK.name;
-  return `#${id} { font-family: ${JSON.stringify(fontEN)}, ${JSON.stringify(fontCJK)} }`;
+  return `#${id} { font-family: ${JSON.stringify(fontEN)}, ${JSON.stringify(fontCJK)} }
+    #${id} .resume-cjk { font-family: ${JSON.stringify(fontCJK)}, sans-serif }
+    #${id} h1 { border-bottom: none }
+    #${id} .resume-block { display: flow-root; break-inside: avoid; page-break-inside: avoid }
+    #${id} .resume-block-oversize { break-inside: auto; page-break-inside: auto }
+    #${id} h2, #${id} h3 { break-after: avoid }`;
 };
 
 const fontSizeCss = (styles: ResumeStyles, id: string) => {
